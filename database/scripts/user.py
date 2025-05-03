@@ -21,7 +21,7 @@ users = [
 def get_user(user_id):
     for user in users:
         if user["id"] == user_id:
-            return user
+            return {"id": user["id"], "username": user["username"]}
 
     return None
 

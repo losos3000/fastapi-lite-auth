@@ -27,7 +27,13 @@ async def login(data: LoginSchema, response: Response):
             )
 
         token = auth.create_access_token(uid=f"{user_id}")
-        response.set_cookie(config.JWT_ACCESS_COOKIE_NAME, token)
+        response.set_cookie(
+            key=config.JWT_ACCESS_COOKIE_NAME,
+            value=token,
+            httponly=True,
+            secure=False,
+            samesite="Lax",
+        )
         return {"access_token": token}
 
     except HTTPException as e:
