@@ -4,8 +4,9 @@ from dotenv import load_dotenv
 
 
 #SYSTEM CONFIG
-PROJECT_NAME = "authentication_module"
-PROJECT_VERSION = "0.1"
+PROJECT_NAME = "Authentication Module"
+PROJECT_WORK_NAME = "authentication_module"
+PROJECT_VERSION = "0.1.0 alpha"
 
 
 #MAIN DIRECTORY CONFIG
@@ -19,7 +20,9 @@ WORK_DIRECTORY = f"/Users/losos3000/Desktop/Projects/01_MY/Authentication_Module
 #ENV CONFIG
 ENV_NAME = ".env"
 ENV_PATH = f"{WORK_DIRECTORY}/{ENV_NAME}"
-load_dotenv(ENV_PATH)
+def env():
+    load_dotenv(ENV_PATH)
+env()
 
 
 #TOKENS
@@ -28,7 +31,7 @@ load_dotenv(ENV_PATH)
 
 #LOGS CONFIG
 LOG_LEVEL=logging.DEBUG
-LOG_NAME = f"{PROJECT_NAME}.log"
+LOG_NAME = f"{PROJECT_WORK_NAME}.log"
 LOG_DIRECTORY = f"{WORK_DIRECTORY}/logs"
 LOG_PATH = f"{LOG_DIRECTORY}/{LOG_NAME}"
 LOG_FORMAT = "%(asctime)s %(levelname)s\t: [%(filename)s] (Line: %(lineno)d) %(message)s"
