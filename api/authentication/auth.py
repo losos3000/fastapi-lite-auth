@@ -8,5 +8,4 @@ config = AuthXConfig(
     JWT_TOKEN_LOCATION = auth_config.TOKEN_LOCATION,
 )
 
-
 auth = AuthX(config=config)

@@ -3,6 +3,14 @@ from fastapi import APIRouter, HTTPException, Response
 from api.schemas.auth import LoginSchema
 
 from api.authentication.auth import auth, config
+from configurations.auth_config import (
+    COOKIE_HTTPONLY,
+    COOKIE_SAMESITE,
+    COOKIE_PATH,
+    COOKIE_SECURE,
+    COOKIE_MAG_AGE,
+    COOKIE_DOMAIN,
+)
 from database.scripts.user import get_user_id
 
 
@@ -30,9 +38,12 @@ async def login(data: LoginSchema, response: Response):
         response.set_cookie(
             key=config.JWT_ACCESS_COOKIE_NAME,
             value=token,
-            httponly=True,
-            secure=False,
-            samesite="Lax",
+            httponly=COOKIE_HTTPONLY,
+            # secure=COOKIE_SECURE,
+            samesite=COOKIE_SAMESITE,
+            max_age=COOKIE_MAG_AGE,
+            path=COOKIE_PATH,
+            # domain=COOKIE_DOMAIN,
         )
         return {"access_token": token}
 
