@@ -56,7 +56,7 @@ const UserPage = () => {
                     gap="md"
                 >
                     <Group justify="start">
-                        <Avatar size={'xl'} name='losos3000' />
+                        <Avatar size={'xl'} name={`${user?.username}`} color="initials" />
 
                         <Title order={3}>
                             {user?.username}

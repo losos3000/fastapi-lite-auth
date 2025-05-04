@@ -17,7 +17,7 @@ const baseConfig = () => {
         headers: c.headers,
         withCredentials: c.withCredentials,
         method: c.defaultMethod,
-        credentials: 'include',
+        // credentials: 'include',
     }
 }
 
