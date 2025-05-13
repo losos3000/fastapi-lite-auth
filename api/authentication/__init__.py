@@ -1,1 +1,0 @@
-from api.authentication.current_user import current_user
