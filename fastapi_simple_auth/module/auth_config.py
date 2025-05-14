@@ -1,7 +1,7 @@
 from typing import Literal
 from authx import AuthX, AuthXConfig
 
-from authentication.basics import basic_config
+from fastapi_simple_auth.basics import basic_config
 
 
 # MODELS CLASSES CONFIG CLASS

@@ -1,6 +1,6 @@
 from datetime import datetime
-from authentication.basics.basic_models import BasicUserModel
-from authentication.basics.basic_schemas import BasicLoginSchema, BasicGetUserSchema
+from fastapi_simple_auth.basics.basic_models import BasicUserModel
+from fastapi_simple_auth.basics.basic_schemas import BasicLoginSchema, BasicGetUserSchema
 
 
 # TOKEN CONFIG

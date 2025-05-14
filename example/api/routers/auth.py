@@ -1,7 +1,8 @@
 from fastapi import APIRouter
 from hashlib import sha256
 
-from authentication import auth_config, auth_router, auth_manager
+from fastapi_simple_auth import auth_config, auth_router, auth_manager
+
 from example.database.scripts import get_user_by_login
 from example.database.models import CustomUserModel
 from example.api.schemas.user import CustomGetUserSchema

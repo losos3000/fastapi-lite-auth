@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 
-from authentication.module.auth_config import auth_config
+from fastapi_simple_auth.module.auth_config import auth_config
 
 
 class AuthManager:
@@ -25,7 +25,7 @@ Example:
 ---
 
 from fastapi import APIRouter
-from authentication import auth_router, auth_config, auth_manager
+from fastapi_simple_auth import auth_router, auth_config, auth_manager
 
 def get_user_by_login(login: str) -> auth_config.models_config.UserModel | None:
     # Request to Database. Find user by login field.
