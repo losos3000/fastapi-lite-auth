@@ -15,24 +15,23 @@ class AuthManager:
         return auth_config.schemas_config.GetUserSchema.model_validate(user_model, from_attributes=True)
 
 
-    # TODO Сделать хеширование
     def hash(self, data: str) -> str:
         return data
 
 
     def get_user(self, login: str) -> auth_config.models_config.UserModel | None:
-        raise ValueError('''Необходимо переопределить метод get_user для auth_manager.
-Пример:
+        raise ValueError('''It is necessary to override the "get_user" method for "auth_manager".
+Example:
 ---
 
 from fastapi import APIRouter
 from authentication import auth_router, auth_config, auth_manager
 
-def get_user(login: str) -> auth_config.models_config.UserModel | None:
-    ...
+def get_user_by_login(login: str) -> auth_config.models_config.UserModel | None:
+    # Request to Database. Find user by login field.
     return user
 
-auth_manager.get_user = get_user
+auth_manager.get_user = get_user_by_login
 
 app = FastAPI()
 app.include_router(router=auth_router)
@@ -52,7 +51,6 @@ app.include_router(router=auth_router)
             )
         user_model: auth_config.models_config.UserModel = self.get_user(login=login)
 
-        # TODO Сделать универсальное преобразование
         user = self.model_validate(user_model)
         return user
 
@@ -73,7 +71,6 @@ app.include_router(router=auth_router)
             )
 
         if str(user_model.__dict__[auth_config.login_config.password_field_name]) == self.hash(data.password):
-            # TODO Сделать универсальное преобразование
             user = self.model_validate(user_model)
             return user
 

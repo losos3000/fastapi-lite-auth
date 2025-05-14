@@ -37,12 +37,12 @@ def create_db():
 
     cursor.execute(
         "INSERT INTO user (full_name, phone, username, email, passport_number, insurance_number, password) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        ("Administrator" ,"000-00-00", "admin", "admin@example.com", "000000", "000-000", "admin")
+        ("Administrator" ,"000-00-00", "admin", "admin@example.com", "000000", "000-000", "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918")
     )
 
     cursor.execute(
         "INSERT INTO user (full_name, phone, username, email, passport_number, insurance_number, password) VALUES (?, ?, ?, ?, ?, ?, ?)",
-        ("User", "123-45-67", "user", "user@example.com", "111222", "123-321", "user")
+        ("User", "123-45-67", "user", "user@example.com", "111222", "123-321", "04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb")
     )
 
     conn.commit()
