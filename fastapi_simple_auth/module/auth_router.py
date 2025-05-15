@@ -7,7 +7,6 @@ from fastapi_simple_auth.module.auth_manager import auth_manager
 router = APIRouter()
 
 
-#TODO Навесить обработчик для отсутствия data
 @router.post(path="/login")
 async def login(response: Response, data: auth_config.schemas_config.LoginSchema):
     '''
@@ -28,7 +27,10 @@ async def login(response: Response, data: auth_config.schemas_config.LoginSchema
             domain=auth_config.cookie_config.cookie_domain,
             expires=auth_config.cookie_config.cookie_expires,
         )
-        return {"access_token": token}
+        return {
+            "status": "Success",
+            "access_token": token
+        }
 
     except HTTPException as e:
         print(e)
