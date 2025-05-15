@@ -125,6 +125,11 @@ class AuthConfig:
             JWT_SECRET_KEY=self.token_config.secret_key,
             JWT_TOKEN_LOCATION=self.token_config.token_location,
             JWT_ACCESS_COOKIE_NAME=self.cookie_config.cookie_name,
+            JWT_ACCESS_COOKIE_PATH = self.cookie_config.cookie_path,
+            JWT_COOKIE_DOMAIN = self.cookie_config.cookie_domain,
+            JWT_COOKIE_MAX_AGE = self.cookie_config.cookie_max_age,
+            JWT_COOKIE_SAMESITE = self.cookie_config.cookie_samesite,
+            JWT_COOKIE_SECURE = self.cookie_config.cookie_secure,
         )
 
         self.auth: AuthX = AuthX(config=self.authx_config)
@@ -134,6 +139,12 @@ class AuthConfig:
         self.authx_config.JWT_SECRET_KEY = self.token_config.secret_key
         self.authx_config.JWT_TOKEN_LOCATION = self.token_config.token_location
         self.authx_config.JWT_ACCESS_COOKIE_NAME = self.cookie_config.cookie_name
+        self.authx_config.JWT_ACCESS_COOKIE_PATH = self.cookie_config.cookie_path,
+        self.authx_config.JWT_COOKIE_DOMAIN = self.cookie_config.cookie_domain,
+        self.authx_config.JWT_COOKIE_MAX_AGE = self.cookie_config.cookie_max_age,
+        self.authx_config.JWT_COOKIE_SAMESITE = self.cookie_config.cookie_samesite,
+        self.authx_config.JWT_COOKIE_SECURE = self.cookie_config.cookie_secure,
+
 
         self.auth.load_config(config=self.authx_config)
 

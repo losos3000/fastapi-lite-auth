@@ -12,9 +12,10 @@ def hash(data: str) -> str:
     return sha256(data.encode()).hexdigest()
 
 
-auth_config.token_config.secret_key = "qwerty123"
 auth_config.models_config.UserModel = CustomUserModel
 auth_config.schemas_config.GetUserSchema = CustomGetUserSchema
+
+auth_config.token_config.secret_key = "qwerty123"
 auth_config.authx_ready()
 
 auth_config.login_config.login_field_name = "email"
