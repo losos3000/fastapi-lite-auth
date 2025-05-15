@@ -11,7 +11,6 @@ def auth_exception(func):
     @wraps(func)
     async def wrapper(*args, **kwargs):
         try:
-            print(auth_config.auth.config.JWT_SECRET_KEY)
             return await func(*args, **kwargs)
         except AuthXException:
             raise HTTPException(

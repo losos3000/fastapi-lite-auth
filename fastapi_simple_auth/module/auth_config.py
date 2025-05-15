@@ -148,8 +148,4 @@ class AuthConfig:
 
         self.auth.load_config(config=self.authx_config)
 
-
-
-
 auth_config = AuthConfig(login_field_name="username")
-
