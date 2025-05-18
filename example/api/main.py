@@ -20,7 +20,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="Authentication Module Example",
-    version="1.0.0-rc1",
+    version="1.0.1",
     description=f'''Example for <a href="https://github.com/losos3000/fastapi-simple-auth/">FastAPI Simple Auth</a>.<br/>
     Module connected in file example/api/routers/auth.py<br/>
     
