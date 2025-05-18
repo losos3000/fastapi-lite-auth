@@ -1,7 +1,7 @@
 import sqlite3
 from example.database.database import DB_PATH
 
-from fastapi_simple_auth import auth_config
+from fastapi_lite_auth import auth_config
 
 
 def get_user_by_login( login: str | None = None) -> auth_config.models_config.UserModel | None:

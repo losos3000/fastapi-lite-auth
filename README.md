@@ -1,4 +1,4 @@
-# FastAPI Simple Auth
+# FastAPI Lite Auth
 This is a login/password authentication module that can be quickly and easily integrated into your project.
 JWT token is used as the authentication method. It is recommended to use the module in small projects and pet projects.
 
@@ -17,20 +17,21 @@ Based on [AuthX](https://github.com/yezz123/authx)
 ---
 
 ## Installation
-### Installing the module
-Clone dir `fastapi-simple-auth` to your project.
+### 1. Installing the module
+Clone dir `fastapi-lite-auth` to your project.
 
 ~~Install module~~
-~~`pip install fastapi-simple-auth`~~
+~~`pip install fastapi-lite-auth`~~
 The module is currently being prepared for publishing to `PyPI`.
 
-### Module integration
+### 2. Module integration
 In the folder containing your API routers (usually `routers/`), create a file named `auth.py`.
 Import the necessary components and create the API router:
 `auth.py`:
+
 ```python
 from fastapi import APIRouter
-from fastapi_simple_auth import auth_config, auth_router, auth_manager
+from fastapi_lite_auth import auth_config, auth_router, auth_manager
 
 auth_config.authx_ready()
 
@@ -42,10 +43,10 @@ router.include_router(
 
 The `auth_config.authx_ready()` function configures the AuthX object. You should call it after modifying any `auth_config` settings. 
 
-### Basic module configuration
+### 3. Basic module configuration
 To make the module work, you need to do a few things:
 
-#### 1. Override the user model and schema.
+#### 3.1. Override the user model and schema.
 The model is an ORM-oriented class.
 The schema is a class that describes the data the API will return.
 
@@ -68,9 +69,11 @@ class BasicUserModel:
 ```
 
 Example of overriding the user model and schema:
+
 ```python
 from pydantic import BaseModel
-from fastapi_simple_auth import auth_config
+from fastapi_lite_auth import auth_config
+
 
 class CustomGetUserSchema(BaseModel):
     id: int
@@ -81,6 +84,7 @@ class CustomGetUserSchema(BaseModel):
     passport_number: str
     insurance_number: str
 
+
 class CustomUserModel:
     id: int
     full_name: str
@@ -90,23 +94,26 @@ class CustomUserModel:
     passport_number: str
     insurance_number: str
     password: str
-    
+
+
 auth_config.models_config.UserModel = CustomUserModel
 auth_config.schemas_config.GetUserSchema = CustomGetUserSchema
 ```
 
-#### 2. Define the user retrieval method.
+#### 3.2. Define the user retrieval method.
 This is a function that should find a user record in your database using the field used as login.
 Requirements:
 - The function must accept a `login` argument of type `str`
 - It must return an instance of the user model described above or `None` if not found
 
 Example override:
+
 ```python
 import sqlite3
-from fastapi_simple_auth import auth_config, auth_manager
+from fastapi_lite_auth import auth_config, auth_manager
 
-def get_user_by_login( login: str | None = None) -> auth_config.models_config.UserModel | None:
+
+def get_user_by_login(login: str | None = None) -> auth_config.models_config.UserModel | None:
     conn = sqlite3.connect("./db.db")
     select = conn.execute(f"SELECT * FROM user WHERE email = ?", (login,))
     res = select.fetchone()
@@ -123,56 +130,82 @@ def get_user_by_login( login: str | None = None) -> auth_config.models_config.Us
 
     return user_model
 
+
 auth_manager.get_user = get_user_by_login
 ```
 
-#### 3. Configure login and password fields
+#### 3.3. Configure login and password fields
 By default, `username` and `password` fields are used.
 Example configuration:
+
 ```python
-from fastapi_simple_auth import auth_config
+from fastapi_lite_auth import auth_config
 
 auth_config.login_config.login_field_name = "email"
 auth_config.login_config.password_field_name = "password"
 auth_config.authx_ready()
 ```
 
-### Additional configuration
-#### 1. Define a password hashing function (if passwords are stored hashed in your DB)
+#### 3.4. Retrieving the Current User
+The authentication token is stored in a cookie. When making a request to the server, it must be sent in the `Credentials` HTTP header.
+To retrieve the user from the JWT token, you need to specify a dependency in the route function:
+```python
+from fastapi import APIRouter, Depends
+from fastapi_lite_auth import current_user
+
+router = APIRouter()
+
+@router.get(path="/me")
+async def get_user(user = Depends(current_user)):
+    return {"user": user}
+```
+The `current_user` dependency returns an instance of the `GetUserSchema` class-schema with the authenticated user's data, which is configured in section **3.1.**
+How it works:
+1. The application retrieves the JWT token from the `Credentials` header
+2. The user's login is extracted from the token
+3. The user is fetched by this login using the `get_user` function, which is configured in section **3.2.**
+
+### 4. Additional configuration
+#### 4.1. Define a password hashing function (if passwords are stored hashed in your DB)
 This function is used to hash the incoming password for comparison.
 Requirements:
 - Must accept a `data` argument of type `str`
 - Must return a `str` hash
 
 Example:
+
 ```python
 from hashlib import sha256
-from fastapi_simple_auth import auth_manager
+from fastapi_lite_auth import auth_manager
+
 
 def hash(data: str) -> str:
     return sha256(data.encode()).hexdigest()
 
+
 auth_manager.hash = hash
 ```
 
-#### 2. Configure the secret key
+#### 4.2. Configure the secret key
 The secret key is used to sign the JWT token.
 It should be stored in environment variables.
 By default, it’s generated from the current datetime.
 
 Example override:
+
 ```python
 import os
-from fastapi_simple_auth import auth_config
+from fastapi_lite_auth import auth_config
 
 auth_config.token_config.secret_key = os.getenv("AUTH_SECRET")
 auth_config.authx_ready()
 ```
 
-#### 3. Configure cookie parameters
+#### 4.3. Configure cookie parameters
 Here’s how to configure cookies and their default values:
+
 ```python
-from fastapi_simple_auth import auth_config
+from fastapi_lite_auth import auth_config
 
 auth_config.cookie_config.cookie_name = "auth_token"
 auth_config.cookie_config.cookie_httponly = False
@@ -185,13 +218,13 @@ auth_config.cookie_config.cookie_expires = None
 auth_config.authx_ready()
 ```
 
-### Example integration
+---
+
+## Example integration
 You can check out the example app in the `example` directory.
 Its configuration is described in `example/api/routers/auth.py`.
 
----
-
-## Requirements
+### Requirements
 ```shell
 pip install -r requirements.txt
 ```
@@ -201,8 +234,11 @@ pip install "fastapi[standard]"
 pip install authx 
 ```
 
-## Start Example
-### API
+### Start Example
+```shell
+python -m example.api.main
+```
+or
 ```shell
 python3 -m example.api.main
 ```

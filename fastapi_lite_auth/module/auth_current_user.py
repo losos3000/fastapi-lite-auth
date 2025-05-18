@@ -3,8 +3,8 @@ from functools import wraps
 from authx.exceptions import AuthXException
 from fastapi import HTTPException
 
-from fastapi_simple_auth.module.auth_config import auth_config
-from fastapi_simple_auth.module.auth_manager import auth_manager
+from fastapi_lite_auth.module.auth_config import auth_config
+from fastapi_lite_auth.module.auth_manager import auth_manager
 
 
 def auth_exception(func):
