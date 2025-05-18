@@ -18,10 +18,8 @@ Based on [AuthX](https://github.com/yezz123/authx)
 
 ## Installation
 ### 1. Installing the module
-Clone dir `fastapi-lite-auth` to your project.
-
-~~Install module~~
-~~`pip install fastapi-lite-auth`~~
+Install module
+`pip install fastapi-lite-auth`
 The module is currently being prepared for publishing to `PyPI`.
 
 ### 2. Module integration
