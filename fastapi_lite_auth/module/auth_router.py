@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Response
 
-from fastapi_simple_auth.module.auth_config import auth_config
-from fastapi_simple_auth.module.auth_manager import auth_manager
+from fastapi_lite_auth.module.auth_config import auth_config
+from fastapi_lite_auth.module.auth_manager import auth_manager
 
 
 router = APIRouter()

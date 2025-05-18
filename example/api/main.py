@@ -7,7 +7,7 @@ from example.api.routers.user import router as user_router
 from example.api.routers.auth import router as auth_router
 from example.database.database import create_db
 
-from fastapi_simple_auth import auth_config
+from fastapi_lite_auth import auth_config
 
 
 @asynccontextmanager

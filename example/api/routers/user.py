@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 
-from fastapi_simple_auth import current_user
+from fastapi_lite_auth import current_user
 
 
 router = APIRouter()
